@@ -136,10 +136,12 @@ void	make_grid(void)
 
 int	main(int ac, char **av)
 {
-	(void)av;
+	char	*initial_state;
 	if (ac == 3)
+	{
+		initial_state = read(av[1]);
 		make_grid();
-		//life(av[1], atoi(av[2]));
+	}
 	else
 		printf("usage: ./life <initial state file> <number of iterations>");
 }
