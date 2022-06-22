@@ -3,7 +3,7 @@
 
 void	print_grid(int grid_size_x, int grid_size_y, t_uint16 **grid);
 
-static t_uint16	set_bits(char *str, int x_dimension, int y, int x)
+ t_uint16	set_bits(char *str, int x_dimension, int y, int x)
 {
 	t_uint16	result;
 	t_uint16	one;
@@ -28,6 +28,24 @@ static t_uint16	set_bits(char *str, int x_dimension, int y, int x)
 	}
 	printf("result: %d\n", result);
 	return (result);
+}
+
+void	set_bits2(char *str, int x_dimension, t_uint16 **grid, int y)
+{
+	int i;
+	uint16_t	bitwise_nb;
+
+	i = 0;
+	bitwise_nb = 0b1000000000000000;
+	while (i < x_dimension)
+	{
+		if (str[i] == 'x')
+			grid[y][i / 16] |= bitwise_nb;
+		bitwise_nb = bitwise_nb >> 1;
+		if (bitwise_nb == 0b0000000000000000)
+			bitwise_nb = 0b1000000000000000;
+		i++;
+	}
 }
 
 static int	get_y_dimension(char *str)
@@ -165,10 +183,12 @@ void	make_grid(char *initial_state)
 		x = 0;
 		while (x < uint16_nb)
 		{
-			grid[y][x] = set_bits(initial_state, grid_size_x, y, x);
+			//grid[y][x] = set_bits(initial_state, grid_size_x, y, x);
+			grid[y][x] = 0b0000000000000000;
 			grid2[y][x] = 0b0000000000000000;
 			x++;
 		}
+		set_bits2(&initial_state[y * (grid_size_x + 1)], grid_size_x, grid, y);
 		y++;
 	}
 
