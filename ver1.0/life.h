@@ -4,4 +4,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 
+typedef unsigned short t_uint16;
+
 #endif
