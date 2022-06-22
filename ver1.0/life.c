@@ -1,6 +1,60 @@
 #include "life.h"
+#include <unistd.h>
 
 void	print_grid(int grid_size_x, int grid_size_y, t_uint16 **grid);
+
+static t_uint16	set_bits(char *str, int x_dimension, int y, int x)
+{
+	t_uint16	result;
+	t_uint16	one;
+	int			i;
+	int			end;
+
+	i = (y * (x_dimension + 1)) + (x * 16);
+	if (x == x_dimension / 16)
+		end = i + (x_dimension % 16);
+	else
+		end = i + 16;
+	result = 0;
+	one = 1;
+	while (i < end)
+	{
+		if (str[i] == 'x')
+		{
+			printf("i: %d\nend: %d\n", i, end);
+			result |= one << ((end - i) + (15 - (x_dimension % 16)));
+		}
+		i++;
+	}
+	printf("result: %d\n", result);
+	return (result);
+}
+
+static int	get_y_dimension(char *str)
+{
+	int	i;
+	int	counter;
+
+	i = 0;
+	counter = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\n')
+			counter++;
+		i++;
+	}
+	return (counter + 1);
+}
+
+static int	get_x_dimension(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\n' && str[i] != '\0')
+		i++;
+	return (i);
+}
 
 void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2)
 {
@@ -75,7 +129,7 @@ void	print_grid(int grid_size_x, int grid_size_y, t_uint16 **grid)
 	}
 }
 
-void	make_grid(void)
+void	make_grid(char *initial_state)
 {
 	int	grid_size_x;
 	int	grid_size_y;
@@ -87,8 +141,8 @@ void	make_grid(void)
 	t_uint16	**grid2;
 
 	bitwise_nb = 0b1000000000000000;
-	grid_size_x = 18;
-	grid_size_y = 5;
+	grid_size_x = get_x_dimension(initial_state);
+	grid_size_y = get_y_dimension(initial_state);
 	y = 0;
 
 	grid = (t_uint16 **)malloc(sizeof(t_uint16 *) * grid_size_y);
@@ -111,7 +165,7 @@ void	make_grid(void)
 		x = 0;
 		while (x < uint16_nb)
 		{
-			grid[y][x] = 0b0000000000000000;
+			grid[y][x] = set_bits(initial_state, grid_size_x, y, x);
 			grid2[y][x] = 0b0000000000000000;
 			x++;
 		}
@@ -125,8 +179,8 @@ void	make_grid(void)
 	..................
 	..................
 	*/
-	grid[1][0] = grid[1][0] | 0b0000000100100000;
-	grid[1][1] = grid[1][1] | 0b1100000000000000;
+//	grid[1][0] = grid[1][0] | 0b0000000100100000;
+//	grid[1][1] = grid[1][1] | 0b1100000000000000;
 	print_grid(grid_size_x, grid_size_y, grid);
 	printf("\n\n");
 	print_grid(grid_size_x, grid_size_y, grid2);
@@ -139,8 +193,8 @@ int	main(int ac, char **av)
 	char	*initial_state;
 	if (ac == 3)
 	{
-		initial_state = read(av[1]);
-		make_grid();
+		initial_state = life_read(av[1]);
+		make_grid(initial_state);
 	}
 	else
 		printf("usage: ./life <initial state file> <number of iterations>");
