@@ -6,6 +6,6 @@
 
 typedef unsigned short t_uint16;
 
-char	*read(char *file);
+char	*life_read(char *file);
 
 #endif

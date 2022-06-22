@@ -52,7 +52,7 @@ char	*read_state(char *file)
 	return (state);
 }
 
-char	*read(char *file)
+char	*life_read(char *file)
 {
 	char	*state;
 
