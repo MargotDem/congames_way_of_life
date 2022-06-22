@@ -3,7 +3,7 @@
 
 void	print_grid(int grid_size_x, int grid_size_y, t_uint16 **grid);
 
- t_uint16	set_bits(char *str, int x_dimension, int y, int x)
+t_uint16	set_bits(char *str, int x_dimension, int y, int x)
 {
 	t_uint16	result;
 	t_uint16	one;
@@ -71,33 +71,94 @@ static int	get_x_dimension(char *str)
 	return (i);
 }
 
-void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2)
+void	tests_bitwise(void)
+{
+	uint16_t	bitwise_nb;
+	uint16_t	line;
+	int i;
+
+	line = 0b1010100000000001;
+
+	bitwise_nb = 0b1000000000000000;
+	i = 0;
+	while (i < 16)
+	{
+		if (line & bitwise_nb)
+			printf("x");
+		else
+			printf(".");
+		i++;
+		bitwise_nb = bitwise_nb >> 1;
+	}
+
+	line = line ^ 0b0000100000000000;
+	printf("\n\n");
+	
+	i = 0;
+	bitwise_nb = 0b1000000000000000;
+	while (i < 16)
+	{
+		if (line & bitwise_nb)
+			printf("x");
+		else
+			printf(".");
+		i++;
+		bitwise_nb = bitwise_nb >> 1;
+	}
+	printf("\n\n");
+}
+
+void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2, int uint16_nb)
 {
 	int	i;
 	int	y;
+	int	x;
 	int	turns;
 	t_uint16	**init_grid;
 	t_uint16	**rslt_grid;
 	uint16_t	bitwise_nb;
+	(void)uint16_nb;
 
 	init_grid = grid;
 	rslt_grid = grid2;
-	y = 0;
 	turns = 0;
-	while (turns < 1)
+	while (turns < 2)
 	{
+		if (turns == 1)
+		{
+			printf("the result grid at turns == 1 is :\n");
+			print_grid(grid_size_x, grid_size_y, rslt_grid);
+		}
+		y = 0;
 		while (y < grid_size_y)
 		{
 			i = 0;
 			bitwise_nb = 0b1000000000000000;
+			x = 0;
+			/*while (x < uint16_nb)
+			{
+				rslt_grid[y][x] = 0b0000000000000000;
+				x++;
+			}*/
 			while (i < grid_size_x)
 			{
 				//rslt_grid[y][i / 16] = 0b0000000000000000;
-				//rslt_grid[y][i / 16] = rslt_grid[y][i / 16] ^ bitwise_nb;
-				if (init_grid[y][i / 16] & bitwise_nb)
+				printf("the rslt grid: %x, the bitwise nb is %x\n", rslt_grid[y][i / 16], bitwise_nb);
+				if ((rslt_grid[y][i / 16] & bitwise_nb))
 				{
+					printf("lalala\n");
+					rslt_grid[y][i / 16] ^= bitwise_nb;
+				}
+				else
+				{
+					//printf("!%d ", i);
+					//rslt_grid[y][i / 16] = rslt_grid[y][i / 16] ^ bitwise_nb;
+				}
+				if ((init_grid[y][i / 16] & bitwise_nb) && turns == 0)
+				{
+					printf("HERE");
 					rslt_grid[y][i / 16] = rslt_grid[y][i / 16] | bitwise_nb;
-					//printf("x");
+					//init_grid[y][i / 16] = init_grid[y][i / 16] ^ bitwise_nb;
 				}
 				bitwise_nb = bitwise_nb >> 1;
 				if (bitwise_nb == 0b0000000000000000)
@@ -107,10 +168,14 @@ void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2)
 			printf("\n");
 			y++;
 		}
-		init_grid = rslt_grid;
+		//init_grid = rslt_grid;
+		printf("\n");
+		printf("turn is %d, init grid:\n", turns);
+		print_grid(grid_size_x, grid_size_y, init_grid);
+		printf("\nrslt grid:\n");
+		print_grid(grid_size_x, grid_size_y, rslt_grid);
 		turns++;
 	}
-	print_grid(grid_size_x, grid_size_y, init_grid);
 }
 
 void	print_grid(int grid_size_x, int grid_size_y, t_uint16 **grid)
@@ -167,7 +232,7 @@ void	make_grid(char *initial_state)
 	uint16_nb = grid_size_x / 16;
 	if (grid_size_x % 16)
 		uint16_nb++;
-	printf("size is %d\n", uint16_nb);
+	//printf("size is %d\n", uint16_nb);
 	while (y < grid_size_y)
 	{
 		grid[y] = (t_uint16 *)malloc(sizeof(t_uint16) * uint16_nb);
@@ -201,8 +266,10 @@ void	make_grid(char *initial_state)
 	print_grid(grid_size_x, grid_size_y, grid);
 	printf("\n\n");
 	print_grid(grid_size_x, grid_size_y, grid2);
-	play(grid_size_x, grid_size_y, grid, grid2);
+	printf("\n\nplay:");
+	play(grid_size_x, grid_size_y, grid, grid2, uint16_nb);
 	printf("\n\n");
+	tests_bitwise();
 }
 
 int	main(int ac, char **av)

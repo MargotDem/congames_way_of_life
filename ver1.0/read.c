@@ -57,6 +57,6 @@ char	*life_read(char *file)
 	char	*state;
 
 	state = read_state(file);
-	printf("this is the state: \n%s\n\n", state);
+	//printf("this is the state: \n%s\n\n", state);
 	return (state);
 }
