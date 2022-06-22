@@ -11,18 +11,15 @@ void	print_grid(int grid_size_x, int grid_size_y, t_uint16 **grid);
 	int			end;
 
 	i = (y * (x_dimension + 1)) + (x * 16);
-	if (x == x_dimension / 16)
-		end = i + (x_dimension % 16);
-	else
-		end = i + 16;
+	end = i + 15;
 	result = 0;
 	one = 1;
-	while (i < end)
+	while (i <= end)
 	{
 		if (str[i] == 'x')
 		{
 			printf("i: %d\nend: %d\n", i, end);
-			result |= one << ((end - i) + (15 - (x_dimension % 16)));
+			result |= one << (end - i);
 		}
 		i++;
 	}
