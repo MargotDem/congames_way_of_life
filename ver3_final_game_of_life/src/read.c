@@ -55,7 +55,6 @@ t_board *make_board(char *initial_state)
     ft_memset(board, '\0', sizeof(t_board));
     board->x_dimension = get_x_dimension(initial_state);
     board->y_dimension = get_y_dimension(initial_state);
-    printf("x-dim: %i\ny-dim: %i\n\n", board->x_dimension, board->y_dimension);
     y = 0;
     i = 0;
     array = (char**)malloc(sizeof(*array) * board->y_dimension);
