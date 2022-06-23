@@ -30,7 +30,7 @@ all:	$(NAME)
 
 $(NAME):
 	gcc $(O_FLAGS) $(FLAGS) $(INCLUDES) -c $(addprefix $(SRC), $(SRCS))
-	gcc $(INCLUDES) -o $(NAME) $(OBJS) $(LIB) $(LIBS) $(FRAMEWORKS)
+	gcc $(INCLUDES) -o $(NAME) $(OBJS) $(LIBS) $(FRAMEWORKS)
 
 clean:
 	rm -v -f $(OBJS)
