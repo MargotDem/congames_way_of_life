@@ -18,5 +18,4 @@ void    print_board(t_board *board)
         x = 0;
         y++;
     }
-    printf("\n");
 }
