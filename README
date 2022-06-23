@@ -1,0 +1,32 @@
+
+################	README FOR GAME OF LIFE    ################
+#					by mde-maul & ijaaskel
+#
+# We have 4 versions of our program:
+#
+# 1.	Our first, quickly thrown together version. No optimization what
+#		so ever. To compile it, just run:
+
+	bash compile.sh
+
+# 2.	We tried a bitwise implementation for the project. Adding to that,
+#		we started compiling with gcc:s -O3 optimization flag. To compile,
+#		run:
+
+	bash compile.sh
+
+# 3.	At this point, we realized that out first version was actually faster
+#		than the bitwise one. So we went back to that one and continued
+#		optimization with that one. This is also our final program for the
+#		optimization tests. To compile, run:
+
+	make
+
+# 3.1	Our last version, with a graphical presentation of the end state of
+#		the game. The processing before that is the same as in ver3. To compile,
+#		run:
+
+	make
+
+#
+
