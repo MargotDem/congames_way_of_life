@@ -155,6 +155,8 @@ int	find_neighbors(t_uint16 **grid, int y, int i, uint16_t bitwise_nb, int grid_
 void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2, int uint16_nb, int iterations)
 {
 	int	i;
+	int	j;
+	int	k;
 	int	y;
 	int	x;
 	int	turns;
@@ -163,6 +165,8 @@ void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2, 
 	t_uint16	**rslt_grid;
 	t_uint16	**tmp;
 	uint16_t	bitwise_nb;
+	uint16_t	nb_plus;
+	uint16_t	nb_minus;
 	(void)uint16_nb;
 
 	//printf("iterations are %d\n", iterations);
@@ -191,6 +195,50 @@ void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2, 
 						//printf("nb of live neighbors is %d\n", neighbors);
 						rslt_grid[y][i / 16] = rslt_grid[y][i / 16] | bitwise_nb;
 					}
+
+					// check the following dead cells
+					/*
+					if (i < grid_size_x - 1)
+					{
+						j = i + 1;
+						nb_plus = bitwise_nb >> 1;
+						if (nb_plus == 0b0000000000000000)
+							nb_plus = 0b1000000000000000;
+						if (!(init_grid[y][j / 16] & nb_plus) && find_neighbors(init_grid, y, j, nb_plus, grid_size_x, grid_size_y) == 3)
+							rslt_grid[y][j / 16] = rslt_grid[y][j / 16] | nb_plus;
+						if (y < grid_size_y - 1)
+							if (!(init_grid[y + 1][j / 16] & nb_plus) && find_neighbors(init_grid, y + 1, j, nb_plus, grid_size_x, grid_size_y) == 3)
+								rslt_grid[y + 1][j / 16] = rslt_grid[y + 1][j / 16] | nb_plus;
+						if (y > 0)
+							if (!(init_grid[y - 1][j /16]) && find_neighbors(init_grid, y - 1, j, nb_plus, grid_size_x, grid_size_y))
+								rslt_grid[y - 1][j / 16] = rslt_grid[y - 1][j / 16] | nb_plus;
+					}
+					if (y < grid_size_y - 1)
+						if (!(init_grid[y + 1][i / 16] & bitwise_nb) && find_neighbors(init_grid, y + 1, i, bitwise_nb, grid_size_x, grid_size_y) == 3)
+							rslt_grid[y + 1][i / 16] = rslt_grid[y + 1][i / 16] | bitwise_nb;
+					if (y > 0)
+						if (!(init_grid[y - 1][i / 16] & bitwise_nb) && find_neighbors(init_grid, y - 1, i, bitwise_nb, grid_size_x, grid_size_y) == 3)
+							rslt_grid[y - 1][i / 16] = rslt_grid[y - 1][i / 16] | bitwise_nb;
+					if (i > 0)
+					{
+						k = i - 1;
+						nb_minus = bitwise_nb << 1;
+						if (nb_minus == 0b0000000000000000)
+							nb_minus = 0b0000000000000001;
+						if (y < grid_size_y - 1)
+							if (!(init_grid[y + 1][k / 16] & nb_minus) && find_neighbors(init_grid, y + 1, k, nb_minus, grid_size_x, grid_size_y) == 3)
+							{
+								printf("here\n");
+								rslt_grid[y + 1][k / 16] = rslt_grid[y + 1][k / 16] | nb_minus;
+							}
+						if (!(init_grid[y][k / 16] & nb_minus) && find_neighbors(init_grid, y, k, nb_minus, grid_size_x, grid_size_y) == 3)
+							rslt_grid[y][k / 16] = rslt_grid[y][k / 16] | nb_minus;
+						if (y > 0)
+							if (!(init_grid[y - 1][k / 16] & nb_minus) && find_neighbors(init_grid, y - 1, k, nb_minus, grid_size_x, grid_size_y) == 3)
+								rslt_grid[y - 1][k / 16] = rslt_grid[y - 1][k / 16] | nb_minus;
+					}
+
+					*/
 				}
 				else
 				{
@@ -207,17 +255,18 @@ void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2, 
 			}
 			y++;
 		}
-		//printf("\n");
+		printf("\n");
 		//printf("grid size y is %d\n", y);
 		//printf("turn is %d, init grid:\n", turns);
 		//print_grid(grid_size_x, grid_size_y, init_grid);
-		//printf("\nrslt grid:\n");
-		//print_grid(grid_size_x, grid_size_y, rslt_grid);
+		printf("\nrslt grid:\n");
+		print_grid(grid_size_x, grid_size_y, rslt_grid);
 		turns++;
 		tmp = rslt_grid;
 		rslt_grid = init_grid;
 		init_grid = tmp;
 	}
+	printf("\n");
 	print_grid(grid_size_x, grid_size_y, rslt_grid);
 }
 
