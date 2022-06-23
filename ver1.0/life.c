@@ -168,6 +168,10 @@ void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2, 
 	uint16_t	nb_plus;
 	uint16_t	nb_minus;
 	(void)uint16_nb;
+	(void)k;
+	(void)j;
+	(void)nb_plus;
+	(void)nb_minus;
 
 	//printf("iterations are %d\n", iterations);
 	init_grid = grid;
@@ -267,7 +271,7 @@ void	play(int grid_size_x, int grid_size_y, t_uint16 **grid,  t_uint16 **grid2, 
 		init_grid = tmp;
 	}
 	printf("\n");
-	print_grid(grid_size_x, grid_size_y, rslt_grid);
+	print_grid(grid_size_x, grid_size_y, init_grid);
 }
 
 void	print_grid(int grid_size_x, int grid_size_y, t_uint16 **grid)
