@@ -83,7 +83,7 @@ void	draw_cells(t_mlx_win *mlx_win, t_board *board, int scale)
 	}
 }
 
-static void	play_game(t_board *init_state, int rounds, t_mlx_win *mlx_win, int scale)
+void	play_game_visualizer(t_board *init_state, int rounds, t_mlx_win *mlx_win, int scale)
 {
     t_board *new_state;
     int     round;
@@ -99,7 +99,6 @@ static void	play_game(t_board *init_state, int rounds, t_mlx_win *mlx_win, int s
         init_state->array = new_state->array;
         free(new_state);
         round++;
-		//draw_cells(mlx_win, init_state, scale);
 		sleep(1);
 		draw_cells(mlx_win, init_state, scale);
 		printf("hello\n");
@@ -110,13 +109,23 @@ static void	play_game(t_board *init_state, int rounds, t_mlx_win *mlx_win, int s
 int	render_next_frame(void *param)
 {
 	t_mlx_win	*mlx_win;
-	//t_board *new_state;
+	t_board *new_state;
 
 	mlx_win = (t_mlx_win *)param;
-	
-	
+	if (mlx_win->rounds <= mlx_win->total_rounds)
+	{
+		new_state = (t_board*)malloc(sizeof(t_board));
+        ft_memset(new_state, '\0', sizeof(t_board));
+        new_state->x_dimension = mlx_win->board->x_dimension;
+        new_state->y_dimension = mlx_win->board->y_dimension;
+        new_state->array = calculate_new_cells(mlx_win->board);
+        mlx_win->board->array = new_state->array;
+        free(new_state);
+		draw_cells(mlx_win, mlx_win->board, mlx_win->scale);
+		mlx_win->rounds++;
+		printf("HERE\n");
+	}
 	sleep(1);
-	printf("HERE\n");
 	return (0);
 }
 
@@ -142,15 +151,19 @@ void	visualize(t_board *board, int visualizer_mode, int rounds)
 		mlx_win->window_length, "Lem in");
 	mlx_win->board = board;
 	mlx_win->scale = scale;
-	mlx_win->rounds = rounds;
+	mlx_win->total_rounds = rounds;
 	if (!(mlx_win->window))
 		exit(0);
 	if (visualizer_mode == 1)
 		draw_cells(mlx_win, board, scale);
-	else
-		play_game(board, rounds, mlx_win, scale);
+	//else
+		//play_game_visualizer(board, rounds, mlx_win, scale);
 	mlx_key_hook(mlx_win->window, handle_key, (void *)mlx_win);
-	//if (visualizer_mode == 2)
-		//mlx_loop_hook(mlx_win->mlx_ptr, render_next_frame, (void *)mlx_win);
+	if (visualizer_mode == 2)
+	{
+		draw_cells(mlx_win, board, scale);
+		mlx_win->rounds = 1;
+		mlx_loop_hook(mlx_win->mlx_ptr, render_next_frame, (void *)mlx_win);
+	}
 	mlx_loop(mlx_win->mlx_ptr);
 }

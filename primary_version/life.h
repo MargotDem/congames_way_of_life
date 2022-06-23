@@ -20,6 +20,7 @@ typedef struct s_mlx_win {
 	size_t		window_length;
 	t_board	*board;
 	int	scale;
+	int	total_rounds;
 	int	rounds;
 }	t_mlx_win;
 
