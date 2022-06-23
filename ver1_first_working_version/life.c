@@ -329,9 +329,7 @@ char    *read_file(char *file)
     return (str);
 }
 
-void	visualize(t_board *board, int visualizer_mode, int rounds);
-
-void    life(char *file, int iterations, int visualizer_mode)
+void    life(char *file, int iterations)
 {
     t_board *board;
     char    *initial_state;
@@ -339,21 +337,15 @@ void    life(char *file, int iterations, int visualizer_mode)
     initial_state = read_file(file);
     printf("file:\n%s\niterations: %i\n\n", initial_state, iterations);
     board = make_board(initial_state);
-	if (visualizer_mode == 1)
-    {
-		board = play_game(board, iterations);
-		print_board(board);
-		visualize(board, 1, iterations);
-	}
-	else
-		visualize(board, 2, iterations);
+    board = play_game(board, iterations);
+    print_board(board);
 }
 
 int main(int ac, char **av)
 {
-    if (ac == 4)
-        life(av[1], atoi(av[2]), atoi(av[3]));
+    if (ac == 3)
+        life(av[1], atoi(av[2]));
     else
-        printf("usage: ./life <initial state file> <iterations> <visualizer mode>\n");
+        printf("usage: ./life <initial state file> <iterations>");
     return (0);
 }

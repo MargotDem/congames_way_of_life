@@ -48,7 +48,7 @@ void	draw_cells(t_mlx_win *mlx_win, t_board *board, int scale)
 					mlx_pixel_put(mlx_win->mlx_ptr, mlx_win->window, i * scale + l, j * scale + k, 0x03fca1);
 					l++;
 				}
-				if (board->array[j][i] == 'x')
+				if (board->array[j][i] == 'X')
 				{
 					k = 1;
 					while (k < scale)
@@ -83,53 +83,7 @@ void	draw_cells(t_mlx_win *mlx_win, t_board *board, int scale)
 	}
 }
 
-void	play_game_visualizer(t_board *init_state, int rounds, t_mlx_win *mlx_win, int scale)
-{
-    t_board *new_state;
-    int     round;
-
-    round = 1;
-    while (round <= rounds)
-    {
-        new_state = (t_board*)malloc(sizeof(t_board));
-        ft_memset(new_state, '\0', sizeof(t_board));
-        new_state->x_dimension = init_state->x_dimension;
-        new_state->y_dimension = init_state->y_dimension;
-        new_state->array = calculate_new_cells(init_state);
-        init_state->array = new_state->array;
-        free(new_state);
-        round++;
-		sleep(1);
-		draw_cells(mlx_win, init_state, scale);
-		printf("hello\n");
-    }
-	//draw_cells(mlx_win, init_state, scale);
-}
-
-int	render_next_frame(void *param)
-{
-	t_mlx_win	*mlx_win;
-	t_board *new_state;
-
-	mlx_win = (t_mlx_win *)param;
-	if (mlx_win->rounds <= mlx_win->total_rounds)
-	{
-		new_state = (t_board*)malloc(sizeof(t_board));
-        ft_memset(new_state, '\0', sizeof(t_board));
-        new_state->x_dimension = mlx_win->board->x_dimension;
-        new_state->y_dimension = mlx_win->board->y_dimension;
-        new_state->array = calculate_new_cells(mlx_win->board);
-        mlx_win->board->array = new_state->array;
-        free(new_state);
-		draw_cells(mlx_win, mlx_win->board, mlx_win->scale);
-		mlx_win->rounds++;
-		printf("HERE\n");
-	}
-	sleep(1);
-	return (0);
-}
-
-void	visualize(t_board *board, int visualizer_mode, int rounds)
+void	visualize(t_board *board, int rounds)
 {
 	t_mlx_win	*mlx_win;
 	int	width;
@@ -154,16 +108,7 @@ void	visualize(t_board *board, int visualizer_mode, int rounds)
 	mlx_win->total_rounds = rounds;
 	if (!(mlx_win->window))
 		exit(0);
-	if (visualizer_mode == 1)
-		draw_cells(mlx_win, board, scale);
-	//else
-		//play_game_visualizer(board, rounds, mlx_win, scale);
+	draw_cells(mlx_win, board, scale);
 	mlx_key_hook(mlx_win->window, handle_key, (void *)mlx_win);
-	if (visualizer_mode == 2)
-	{
-		draw_cells(mlx_win, board, scale);
-		mlx_win->rounds = 1;
-		mlx_loop_hook(mlx_win->mlx_ptr, render_next_frame, (void *)mlx_win);
-	}
 	mlx_loop(mlx_win->mlx_ptr);
 }
