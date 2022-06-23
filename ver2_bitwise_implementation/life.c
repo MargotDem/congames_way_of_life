@@ -16,7 +16,7 @@ t_uint16	set_bits(char *str, int x_dimension, int y, int x)
 	one = 1;
 	while (i <= end)
 	{
-		if (str[i] == 'x')
+		if (str[i] == 'X')
 		{
 			printf("i: %d\nend: %d\n", i, end);
 			result |= one << (end - i);
@@ -36,7 +36,7 @@ void	set_bits2(char *str, int x_dimension, t_uint16 **grid, int y)
 	bitwise_nb = 0b1000000000000000;
 	while (i < x_dimension)
 	{
-		if (str[i] == 'x')
+		if (str[i] == 'X')
 			grid[y][i / 16] |= bitwise_nb;
 		bitwise_nb = bitwise_nb >> 1;
 		if (bitwise_nb == 0b0000000000000000)
