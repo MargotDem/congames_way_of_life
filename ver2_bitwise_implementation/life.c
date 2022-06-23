@@ -1,5 +1,4 @@
 #include "life.h"
-#include <unistd.h>
 
 void	print_grid(int grid_size_x, int grid_size_y, t_uint16 **grid);
 

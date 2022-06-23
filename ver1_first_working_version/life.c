@@ -1,5 +1,4 @@
 #include "life.h"
-#include <unistd.h>
 
 void    print_board(t_board *board)
 {
