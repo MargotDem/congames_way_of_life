@@ -1,1 +1,1 @@
-gcc -O3 -Wall -Wextra -Werror life.c read.c
+gcc -O3 -Wall -Wextra -Werror -o life life.c read.c
