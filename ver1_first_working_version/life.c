@@ -19,7 +19,6 @@ void    print_board(t_board *board)
         x = 0;
         y++;
     }
-    printf("\n");
 }
 
 void	*ft_memset(void *s, int c, size_t n)
@@ -46,35 +45,35 @@ int get_neighbors(t_board *init_state, int y, int x)
     {
         if (x == 0)
         {
-            if(init_state->array[y][x+1] == 'x')
+            if(init_state->array[y][x+1] == 'X')
                 counter++;
-            if(init_state->array[y+1][x+1] == 'x')
+            if(init_state->array[y+1][x+1] == 'X')
                 counter++;
-            if(init_state->array[y+1][x] == 'x')
+            if(init_state->array[y+1][x] == 'X')
                 counter++;
             return (counter);
         }
         else if (x == init_state->x_dimension - 1)
         {
-            if(init_state->array[y+1][x] == 'x')
+            if(init_state->array[y+1][x] == 'X')
                 counter++;
-            if(init_state->array[y+1][x-1] == 'x')
+            if(init_state->array[y+1][x-1] == 'X')
                 counter++;
-            if(init_state->array[y][x-1] == 'x')
+            if(init_state->array[y][x-1] == 'X')
                 counter++;
             return (counter);
         }
         else
         {
-            if(init_state->array[y][x+1] == 'x')
+            if(init_state->array[y][x+1] == 'X')
                 counter++;
-            if(init_state->array[y+1][x+1] == 'x')
+            if(init_state->array[y+1][x+1] == 'X')
                 counter++;
-            if(init_state->array[y+1][x] == 'x')
+            if(init_state->array[y+1][x] == 'X')
                 counter++;
-            if(init_state->array[y+1][x-1] == 'x')
+            if(init_state->array[y+1][x-1] == 'X')
                 counter++;
-            if(init_state->array[y][x-1] == 'x')
+            if(init_state->array[y][x-1] == 'X')
                 counter++;
             return (counter);
         }
@@ -83,35 +82,35 @@ int get_neighbors(t_board *init_state, int y, int x)
     {
         if (x == 0)
         {
-            if(init_state->array[y-1][x] == 'x')
+            if(init_state->array[y-1][x] == 'X')
                 counter++;
-            if(init_state->array[y-1][x+1] == 'x')
+            if(init_state->array[y-1][x+1] == 'X')
                 counter++;
-            if(init_state->array[y][x+1] == 'x')
+            if(init_state->array[y][x+1] == 'X')
                 counter++;
             return (counter);
         }
         else if (x == init_state->x_dimension - 1)
         {
-            if(init_state->array[y-1][x-1] == 'x')
+            if(init_state->array[y-1][x-1] == 'X')
                 counter++;
-            if(init_state->array[y-1][x] == 'x')
+            if(init_state->array[y-1][x] == 'X')
                 counter++;
-            if(init_state->array[y][x-1] == 'x')
+            if(init_state->array[y][x-1] == 'X')
                 counter++;
             return (counter);
         }
         else
         {
-            if(init_state->array[y-1][x-1] == 'x')
+            if(init_state->array[y-1][x-1] == 'X')
                 counter++;
-            if(init_state->array[y-1][x] == 'x')
+            if(init_state->array[y-1][x] == 'X')
                 counter++;
-            if(init_state->array[y-1][x+1] == 'x')
+            if(init_state->array[y-1][x+1] == 'X')
                 counter++;
-            if(init_state->array[y][x+1] == 'x')
+            if(init_state->array[y][x+1] == 'X')
                 counter++;
-            if(init_state->array[y][x-1] == 'x')
+            if(init_state->array[y][x-1] == 'X')
                 counter++;
             return (counter);
         }
@@ -120,49 +119,49 @@ int get_neighbors(t_board *init_state, int y, int x)
     {
         if (x == 0)
         {
-            if(init_state->array[y-1][x] == 'x')
+            if(init_state->array[y-1][x] == 'X')
                 counter++;
-            if(init_state->array[y-1][x+1] == 'x')
+            if(init_state->array[y-1][x+1] == 'X')
                 counter++;
-            if(init_state->array[y][x+1] == 'x')
+            if(init_state->array[y][x+1] == 'X')
                 counter++;
-            if(init_state->array[y+1][x+1] == 'x')
+            if(init_state->array[y+1][x+1] == 'X')
                 counter++;
-            if(init_state->array[y+1][x] == 'x')
+            if(init_state->array[y+1][x] == 'X')
                 counter++;
             return (counter);
         }
         else if (x == init_state->x_dimension - 1)
         {
-            if(init_state->array[y-1][x-1] == 'x')
+            if(init_state->array[y-1][x-1] == 'X')
                 counter++;
-            if(init_state->array[y-1][x] == 'x')
+            if(init_state->array[y-1][x] == 'X')
                 counter++;
-            if(init_state->array[y+1][x] == 'x')
+            if(init_state->array[y+1][x] == 'X')
                 counter++;
-            if(init_state->array[y+1][x-1] == 'x')
+            if(init_state->array[y+1][x-1] == 'X')
                 counter++;
-            if(init_state->array[y][x-1] == 'x')
+            if(init_state->array[y][x-1] == 'X')
                 counter++;
             return (counter);
         }
         else
         {
-            if(init_state->array[y-1][x-1] == 'x')
+            if(init_state->array[y-1][x-1] == 'X')
                 counter++;
-            if(init_state->array[y-1][x] == 'x')
+            if(init_state->array[y-1][x] == 'X')
                 counter++;
-            if(init_state->array[y-1][x+1] == 'x')
+            if(init_state->array[y-1][x+1] == 'X')
                 counter++;
-            if(init_state->array[y][x+1] == 'x')
+            if(init_state->array[y][x+1] == 'X')
                 counter++;
-            if(init_state->array[y+1][x+1] == 'x')
+            if(init_state->array[y+1][x+1] == 'X')
                 counter++;
-            if(init_state->array[y+1][x] == 'x')
+            if(init_state->array[y+1][x] == 'X')
                 counter++;
-            if(init_state->array[y+1][x-1] == 'x')
+            if(init_state->array[y+1][x-1] == 'X')
                 counter++;
-            if(init_state->array[y][x-1] == 'x')
+            if(init_state->array[y][x-1] == 'X')
                 counter++;
             return (counter);  
         }
@@ -171,17 +170,17 @@ int get_neighbors(t_board *init_state, int y, int x)
 
 char    calculate_cell(t_board *init_state, int y, int x)
 {
-    if (init_state->array[y][x] == 'x')
+    if (init_state->array[y][x] == 'X')
     {
         if (get_neighbors(init_state, y, x) < 2 || get_neighbors(init_state, y, x) > 3)
             return ('.');
         else
-            return ('x');
+            return ('X');
     }
     else
     {
         if (get_neighbors(init_state, y, x) == 3)
-            return ('x');
+            return ('X');
         else
             return ('.');
     }
@@ -225,7 +224,6 @@ t_board *play_game(t_board *init_state, int rounds)
         init_state->array = new_state->array;
         free(new_state);
         round++;
-        print_board(init_state);
     }
     return (init_state);
 }
@@ -244,7 +242,7 @@ int get_y_dimension(char *initial_state)
         i++;
     }
     
-    return (counter);
+    return (counter - 1);
 }
 
 int get_x_dimension(char *initial_state)
@@ -270,7 +268,6 @@ t_board *make_board(char *initial_state)
     ft_memset(board, '\0', sizeof(t_board));
     board->x_dimension = get_x_dimension(initial_state);
     board->y_dimension = get_y_dimension(initial_state);
-    printf("x-dim: %i\ny-dim: %i\n\n", board->x_dimension, board->y_dimension);
     y = 0;
     i = 0;
     array = (char**)malloc(sizeof(*array) * board->y_dimension);
@@ -306,7 +303,7 @@ char    *read_file(char *file)
         return (NULL);
     }
     c = fgetc(fp);
-    if (c != '.' && c != 'x')
+    if (c != '.' && c != 'X')
     {
         printf("Empty file");
         return (NULL);
@@ -335,7 +332,6 @@ void    life(char *file, int iterations)
     char    *initial_state;
 
     initial_state = read_file(file);
-    printf("file:\n%s\niterations: %i\n\n", initial_state, iterations);
     board = make_board(initial_state);
     board = play_game(board, iterations);
     print_board(board);
